@@ -1,10 +1,9 @@
-import crypto from 'crypto'
-import got from 'got'
-import pMap from 'p-map'
-
-import { api, isPreviewImageSupportEnabled } from './config'
-import * as types from './types'
-import * as db from './db'
+import crypto from 'crypto';
+import got from 'got';
+import pMap from 'p-map';
+import { api, isPreviewImageSupportEnabled } from './config';
+import * as types from './types';
+import * as db from './db';
 
 function sha256(input: Buffer | string) {
   const buffer = Buffer.isBuffer(input) ? input : Buffer.from(input)
@@ -12,8 +11,8 @@ function sha256(input: Buffer | string) {
 }
 
 export async function getPreviewImages(
-  images: string[]
-): Promise<types.PreviewImageMap> {
+    images: (string | null)[]
+): Promise<PreviewImageMap> {
   if (!isPreviewImageSupportEnabled) {
     return {}
   }

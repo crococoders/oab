@@ -1,9 +1,8 @@
-import { NotionAPI } from 'notion-client'
-import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types'
-import { getPreviewImages } from './get-preview-images'
-import { mapNotionImageUrl } from './map-image-url'
-// import { fetchTweetAst } from 'static-tweets'
-import pMap from 'p-map'
+import { NotionAPI } from 'notion-client';
+import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types';
+import { getPreviewImages } from './get-preview-images';
+import { mapNotionImageUrl } from './map-image-url';
+import pMap from 'p-map';
 
 export const notion = new NotionAPI({
   apiBaseUrl: process.env.NOTION_API_BASE_URL
@@ -13,7 +12,7 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   const recordMap = await notion.getPage(pageId)
   const blockIds = Object.keys(recordMap.block)
 
-  const imageUrls: string[] = blockIds
+  const imageUrls: (null | string)[] = blockIds
     .map((blockId) => {
       const block = recordMap.block[blockId]?.value
 
@@ -42,14 +41,14 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
       return null
     })
     .filter(Boolean)
-    .map(({ block, url }) => mapNotionImageUrl(url, block))
+    .map(({ block, url }: any) => mapNotionImageUrl(url, block))
     .filter(Boolean)
 
   const urls = Array.from(new Set(imageUrls))
   const previewImageMap = await getPreviewImages(urls)
   ;(recordMap as any).preview_images = previewImageMap
 
-  const tweetIds: string[] = blockIds
+  const tweetIds: (string | null)[] = blockIds
     .map((blockId) => {
       const block = recordMap.block[blockId]?.value
 
@@ -85,8 +84,8 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
     }
   )
 
-  const tweetAstMap = tweetAsts.reduce((acc, { tweetId, tweetAst }) => {
-    if (tweetAst) {
+  const tweetAstMap = tweetAsts.reduce((acc, { tweetId , tweetAst }: any) => {
+    if (tweetAst && tweetId) {
       return {
         ...acc,
         [tweetId]: tweetAst

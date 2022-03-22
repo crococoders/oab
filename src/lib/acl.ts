@@ -1,10 +1,11 @@
 import { PageProps } from './types'
+import {useNetworkState} from "react-use";
 
 export async function pageAcl({
   site,
   recordMap,
   pageId
-}: PageProps): Promise<PageProps> {
+}: PageProps){
   if (!site) {
     return {
       error: {

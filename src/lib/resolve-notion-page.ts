@@ -7,10 +7,11 @@ import { pageUrlOverrides, pageUrlAdditions } from './config'
 import { getPage } from './notion'
 import { getSiteMaps } from './get-site-maps'
 import { getSiteForDomain } from './get-site-for-domain'
+import {PageProps} from "./types";
 
 export async function resolveNotionPage(domain: string, rawPageId?: string) {
-  let site: types.Site
-  let pageId: string
+  let site: types.Site | null
+  let pageId: string | undefined
   let recordMap: ExtendedRecordMap
 
   if (rawPageId && rawPageId !== 'index') {
@@ -66,12 +67,12 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
     }
   } else {
     site = await getSiteForDomain(domain)
-    pageId = site.rootNotionPageId
+    pageId = site?.rootNotionPageId
 
     console.log(site)
-    recordMap = await getPage(pageId)
+    recordMap = await getPage(pageId!)
   }
 
   const props = { site, recordMap, pageId }
-  return { ...props, ...(await acl.pageAcl(props)) }
+  return { ...props, ...(await acl.pageAcl(props as PageProps)) }
 }

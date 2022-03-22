@@ -3,8 +3,9 @@ import pMap from 'p-map'
 import { getAllPages } from './get-all-pages'
 import { getSites } from './get-sites'
 import * as types from './types'
+import {Site} from "./types";
 
-export async function getSiteMaps(): Promise<types.SiteMap[]> {
+export async function getSiteMaps()  {
   const sites = await getSites()
 
   const siteMaps = await pMap(
@@ -20,7 +21,7 @@ export async function getSiteMaps(): Promise<types.SiteMap[]> {
 
         return {
           site,
-          ...(await getAllPages(site.rootNotionPageId, site.rootNotionSpaceId))
+          ...(await getAllPages(site?.rootNotionPageId!, site?.rootNotionSpaceId!))
         } as types.SiteMap
       } catch (err) {
         console.warn('site build error', index, site, err)

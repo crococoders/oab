@@ -21,7 +21,7 @@ export async function getAllPagesImpl(
   )
 
   const canonicalPageMap = Object.keys(pageMap).reduce(
-    (map, pageId: string) => {
+    (map:any, pageId: string) => {
       const recordMap = pageMap[pageId]
       if (!recordMap) {
         throw new Error(`Error loading page "${pageId}"`)
@@ -31,19 +31,19 @@ export async function getAllPagesImpl(
         uuid
       })
 
-      if (map[canonicalPageId]) {
+      if (canonicalPageId && map[canonicalPageId]) {
         console.error(
           'error duplicate canonical page id',
           canonicalPageId,
           pageId,
-          map[canonicalPageId ?? ""]
+          map[canonicalPageId]
         )
 
         return map
       } else {
         return {
           ...map,
-          [canonicalPageId]: pageId
+          [canonicalPageId!]: pageId
         }
       }
     },

@@ -4,9 +4,10 @@ import pMap from 'p-map';
 import { api, isPreviewImageSupportEnabled } from './config';
 import * as types from './types';
 import * as db from './db';
+import {PreviewImageMap} from "./types";
 
-function sha256(input: Buffer | string) {
-  const buffer = Buffer.isBuffer(input) ? input : Buffer.from(input)
+function sha256(input: string | null) {
+  const buffer = Buffer.isBuffer(input) ? input : Buffer.from(input as string)
   return crypto.createHash('sha256').update(buffer).digest('hex')
 }
 

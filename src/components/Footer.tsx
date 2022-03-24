@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { IoSunnyOutline, IoMoonSharp } from 'react-icons/io5';
-import * as config from '../lib/config';
+import * as config from 'lib/config';
 
 import styles from './styles.module.css';
 

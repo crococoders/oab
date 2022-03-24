@@ -3,46 +3,43 @@ import Head from 'next/head';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 // import cs from 'classnames';
-import { useRouter } from 'next/router';
-import { useSearchParam } from 'react-use';
+import {useRouter} from 'next/router';
+import {useSearchParam} from 'react-use';
 // import BodyClassName from 'react-body-classname';
 import useDarkMode from 'use-dark-mode';
-// import { PageBlock } from 'notion-types';
+import {PageBlock} from 'packages/notion-types';
 
 // core notion renderer
-import { NotionRenderer, Code, Collection, CollectionRow } from 'react-notion-x'
+import {NotionRenderer} from 'packages/react-notion-x'
+import {Collection} from 'packages/react-notion-x/third-party';
 
 // utils
-import { getBlockTitle } from 'notion-utils'
-import { mapPageUrl, getCanonicalPageUrl } from '../lib/map-page-url'
-import { mapNotionImageUrl } from '../lib/map-image-url'
-import { getPageDescription } from '../lib/get-page-description'
-import { getPageTweet } from '../lib/get-page-tweet'
-import { searchNotion } from '../lib/search-notion'
-import * as types from '../lib/types'
-import * as config from '../lib/config'
+import {getBlockTitle} from 'packages/notion-utils'
+import {getCanonicalPageUrl, mapPageUrl} from 'lib/map-page-url'
+import {mapNotionImageUrl} from 'lib/map-image-url'
+import {getPageDescription} from 'lib/get-page-description'
+import {getPageTweet} from 'lib/get-page-tweet'
+import {searchNotion} from 'lib/search-notion'
+import * as types from 'lib/types'
+import * as config from 'lib/config'
 
 // components
-import { CustomFont } from './CustomFont'
-import { Loading } from './Loading'
-import { Page404 } from './Page404'
-import { PageHead } from './PageHead'
-import { PageActions } from './PageActions'
-import { Footer } from './Footer'
-import { PageSocial } from './PageSocial'
-import { GitHubShareButton } from './GitHubShareButton'
-import { ReactUtterances } from './ReactUtterances'
+import {CustomFont} from './CustomFont'
+import {Loading} from './Loading'
+import {Page404} from './Page404'
+import {PageHead} from './PageHead'
+import {PageActions} from './PageActions'
+import {Footer} from './Footer'
+import {PageSocial} from './PageSocial'
+import {ReactUtterances} from './ReactUtterances'
 
-import styles from './styles.module.css'
 
-// @ts-ignore
 const Equation = dynamic(() =>
-    import('react-notion-x').then((notion) => notion.Equation)
+    import('packages/react-notion-x/third-party').then((notion) => notion.Equation)
 )
 
-
 const Modal = dynamic(
-    () => import('react-notion-x').then((notion) => notion.Modal),
+    () => import('packages/react-notion-x/third-party').then((notion) => notion.Modal),
     {ssr: false}
 )
 
@@ -57,17 +54,17 @@ export const NotionPage: React.FC = ({site, recordMap, error, pageId}: any) => {
     const isLiteMode = lite === 'true'
     const searchParams = new URLSearchParams(params)
 
-    const darkMode = useDarkMode(false, { classNameDark: 'dark-mode' })
+    const darkMode = useDarkMode(false, {classNameDark: 'dark-mode'})
 
     if (router.isFallback) {
-        return <Loading />
+        return <Loading/>
     }
 
     const keys = Object.keys(recordMap?.block || {})
     const block = recordMap?.block?.[keys[0]]?.value
 
     if (error || !site || !keys.length || !block) {
-        return <Page404 site={site} pageId={pageId} error={error} />
+        return <Page404 site={site} pageId={pageId} error={error}/>
     }
 
     const title = getBlockTitle(block, recordMap) || site.name
@@ -100,10 +97,10 @@ export const NotionPage: React.FC = ({site, recordMap, error, pageId}: any) => {
     const showTableOfContents = !!isBlogPost
     const minTableOfContentsItems = 3
 
-    // const socialImage = mapNotionImageUrl(
-    //     (block as PageBlock).format?.page_cover || config.defaultPageCover,
-    //     block
-    // )
+    const socialImage = mapNotionImageUrl(
+        (block as PageBlock).format?.page_cover || config.defaultPageCover,
+        block
+    )
 
     const socialDescription =
         getPageDescription(block, recordMap) ?? config.description
@@ -126,117 +123,105 @@ export const NotionPage: React.FC = ({site, recordMap, error, pageId}: any) => {
 
         const tweet = getPageTweet(block, recordMap)
         if (tweet) {
-            pageAside = <PageActions tweet={tweet} />
+            pageAside = <PageActions tweet={tweet}/>
         }
     } else {
-        pageAside = <PageSocial />
+        pageAside = <PageSocial/>
     }
 
     return (
         <div>
-            <PageHead site={site} />
+            <PageHead site={site}/>
 
             <Head>
-                <meta property='og:title' content={title} />
-                <meta property='og:site_name' content={site.name} />
+                <meta property='og:title' content={title}/>
+                <meta property='og:site_name' content={site.name}/>
 
-                <meta name='twitter:title' content={title} />
-                <meta property='twitter:domain' content={site.domain} />
+                <meta name='twitter:title' content={title}/>
+                <meta property='twitter:domain' content={site.domain}/>
 
                 {config.twitter && (
-                    <meta name='twitter:creator' content={`@${config.twitter}`} />
+                    <meta name='twitter:creator' content={`@${config.twitter}`}/>
                 )}
 
                 {socialDescription && (
                     <>
-                        <meta name='description' content={socialDescription} />
-                        <meta property='og:description' content={socialDescription} />
-                        <meta name='twitter:description' content={socialDescription} />
+                        <meta name='description' content={socialDescription}/>
+                        <meta property='og:description' content={socialDescription}/>
+                        <meta name='twitter:description' content={socialDescription}/>
                     </>
                 )}
 
-                {/*{socialImage ? (*/}
-                {/*    <>*/}
-                {/*        <meta name='twitter:card' content='summary_large_image' />*/}
-                {/*        <meta name='twitter:image' content={socialImage} />*/}
-                {/*        <meta property='og:image' content={socialImage} />*/}
-                {/*    </>*/}
-                {/*) : (*/}
-                {/*    <meta name='twitter:card' content='summary' />*/}
-                {/*)}*/}
+                {socialImage ? (
+                    <>
+                        <meta name='twitter:card' content='summary_large_image'/>
+                        <meta name='twitter:image' content={socialImage}/>
+                        <meta property='og:image' content={socialImage}/>
+                    </>
+                ) : (
+                    <meta name='twitter:card' content='summary'/>
+                )}
 
                 {canonicalPageUrl && (
                     <>
-                        <link rel='canonical' href={canonicalPageUrl} />
-                        <meta property='og:url' content={canonicalPageUrl} />
-                        <meta property='twitter:url' content={canonicalPageUrl} />
+                        <link rel='canonical' href={canonicalPageUrl}/>
+                        <meta property='og:url' content={canonicalPageUrl}/>
+                        <meta property='twitter:url' content={canonicalPageUrl}/>
                     </>
                 )}
 
                 <title>{title}</title>
             </Head>
 
-            <CustomFont site={site} />
+            <CustomFont site={site}/>
 
             {/*{isLiteMode && <BodyClassName className='notion-lite' />}*/}
 
-     <NotionRenderer
-        // bodyClassName
-        components={{
-            pageLink: ({
-                           href,
-                           as,
-                           passHref,
-                           prefetch,
-                           replace,
-                           scroll,
-                           shallow,
-                           locale,
-                           ...props
-                       }: any) => (
-                <Link
-                    href={href}
-                    as={as}
-                    passHref={passHref}
-                    prefetch={prefetch}
-                    replace={replace}
-                    scroll={scroll}
-                    shallow={shallow}
-                    locale={locale}
-                >
-                    <a {...props} />
-                </Link>
-            ),
-            code: Code,
-            collection: Collection,
-            collectionRow: CollectionRow,
-            modal: Modal,
-            equation: Equation
-        }}
-        recordMap={recordMap}
-        rootPageId={site.rootNotionPageId}
-        fullPage={!isLiteMode}
-        darkMode={darkMode.value}
-        previewImages={site.previewImages !== false}
-        showCollectionViewDropdown={false}
-        showTableOfContents={showTableOfContents}
-        minTableOfContentsItems={minTableOfContentsItems}
-        defaultPageIcon={config.defaultPageIcon ?? undefined}
-        defaultPageCover={config.defaultPageCover ?? undefined}
-        defaultPageCoverPosition={config.defaultPageCoverPosition}
-        mapPageUrl={siteMapPageUrl}
-        mapImageUrl={mapNotionImageUrl as
-            (url: string, block: types.Block) => string}
-        searchNotion={searchNotion}
-        pageFooter={comments}
-        pageAside={pageAside}
-        footer={
-            <Footer
-                isDarkMode={darkMode.value}
-                toggleDarkMode={darkMode.toggle}
+            <NotionRenderer
+                // bodyClassName
+                components={{
+                    PageLink: ({href, as, passHref, prefetch, replace, scroll, shallow, locale, ...props}: any) => (
+                        <Link
+                            href={href}
+                            as={as}
+                            passHref={passHref}
+                            prefetch={prefetch}
+                            replace={replace}
+                            scroll={scroll}
+                            shallow={shallow}
+                            locale={locale}
+                        >
+                            <a {...props} />
+                        </Link>
+                    ),
+                    Collection,
+                    Modal,
+                    Equation
+                }}
+                recordMap={recordMap}
+                rootPageId={site.rootNotionPageId}
+                fullPage={!isLiteMode}
+                darkMode={darkMode.value}
+                previewImages={site.previewImages !== false}
+                showCollectionViewDropdown={false}
+                showTableOfContents={showTableOfContents}
+                minTableOfContentsItems={minTableOfContentsItems}
+                defaultPageIcon={config.defaultPageIcon ?? undefined}
+                defaultPageCover={config.defaultPageCover ?? undefined}
+                defaultPageCoverPosition={config.defaultPageCoverPosition}
+                mapPageUrl={siteMapPageUrl}
+                mapImageUrl={mapNotionImageUrl as
+                    (url: string, block: types.Block) => string}
+                searchNotion={searchNotion}
+                pageFooter={comments}
+                pageAside={pageAside}
+                footer={
+                    <Footer
+                        isDarkMode={darkMode.value}
+                        toggleDarkMode={darkMode.toggle}
+                    />
+                }
             />
-        }
-    />
         </div>
     )
 }

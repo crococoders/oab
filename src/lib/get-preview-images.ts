@@ -1,10 +1,10 @@
 import crypto from 'crypto';
 import got from 'got';
 import pMap from 'p-map';
-import { api, isPreviewImageSupportEnabled } from './config';
-import * as types from './types';
-import * as db from './db';
-import {PreviewImageMap} from "./types";
+import { api, isPreviewImageSupportEnabled } from 'lib/config';
+import * as types from 'lib/types';
+import * as db from 'lib/db';
+import {PreviewImageMap} from "lib/types";
 
 function sha256(input: string | null) {
   const buffer = Buffer.isBuffer(input) ? input : Buffer.from(input as string)

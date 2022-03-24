@@ -1,13 +1,13 @@
-import { parsePageId } from 'notion-utils'
-import { ExtendedRecordMap } from 'notion-types'
+import { parsePageId } from 'packages/notion-utils'
+import { ExtendedRecordMap } from 'packages/notion-types'
 
-import * as acl from './acl'
-import * as types from './types'
-import { pageUrlOverrides, pageUrlAdditions } from './config'
-import { getPage } from './notion'
-import { getSiteMaps } from './get-site-maps'
-import { getSiteForDomain } from './get-site-for-domain'
-import {PageProps} from "./types";
+import * as acl from 'lib/acl'
+import * as types from 'lib/types'
+import { pageUrlOverrides, pageUrlAdditions } from 'lib/config'
+import { getPage } from 'lib/notion'
+import { getSiteMaps } from 'lib/get-site-maps'
+import { getSiteForDomain } from 'lib/get-site-for-domain'
+import {PageProps} from "lib/types";
 
 export async function resolveNotionPage(domain: string, rawPageId?: string) {
   let site: types.Site | null

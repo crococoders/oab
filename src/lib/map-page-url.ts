@@ -1,9 +1,9 @@
-import { ExtendedRecordMap } from 'notion-types'
-import { uuidToId, parsePageId } from 'notion-utils'
+import { ExtendedRecordMap } from 'packages/notion-types'
+import { uuidToId, parsePageId } from 'packages/notion-utils'
 
-import { Site } from './types'
-import { includeNotionIdInUrls } from './config'
-import { getCanonicalPageId } from './get-canonical-page-id'
+import { Site } from 'lib/types'
+import { includeNotionIdInUrls } from 'lib/config'
+import { getCanonicalPageId } from 'lib/get-canonical-page-id'
 
 // include UUIDs in page URLs during local development but not in production
 // (they're nice for debugging and speed up local dev)

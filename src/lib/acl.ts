@@ -1,5 +1,4 @@
-import { PageProps } from './types'
-import {useNetworkState} from "react-use";
+import { PageProps } from 'lib/types'
 
 export async function pageAcl({
   site,
@@ -51,6 +50,6 @@ export async function pageAcl({
           message: `Notion page "${pageId}" doesn't belong to the Notion workspace owned by "${site.domain}".`
         }
       }
-    }
-  }
+    } else return null;
+  } else return null;
 }

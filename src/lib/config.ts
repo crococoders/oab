@@ -5,9 +5,9 @@
  * for optional depenencies.
  */
 
-import { parsePageId } from 'notion-utils'
-import { getSiteConfig, getEnv } from './get-config-value'
-import { PageUrlOverridesMap, PageUrlOverridesInverseMap } from './types'
+import { parsePageId } from 'packages/notion-utils'
+import { getSiteConfig, getEnv } from 'lib/get-config-value'
+import { PageUrlOverridesMap, PageUrlOverridesInverseMap } from 'lib/types'
 
 export const rootNotionPageId: string = parsePageId(
   getSiteConfig('rootNotionPageId'),

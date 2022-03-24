@@ -1,8 +1,8 @@
 // global styles shared across the entire site
-import '../styles/globals.css'
+import 'styles/globals.css'
 
 // core styles shared by all of react-notion-x (required)
-import 'react-notion-x/src/styles.css'
+import 'packages/react-notion-x/styles.css'
 
 // used for code syntax highlighting (optional)
 import 'prismjs/themes/prism-coy.css'
@@ -21,10 +21,10 @@ import 'katex/dist/katex.min.css'
 // import 'react-static-tweets/styles.css'
 
 // global style overrides for notion
-import '../styles/notion.css'
+import 'styles/notion.css'
 
 // global style overrides for prism theme (optional)
-import '../styles/prism-theme.css'
+import 'styles/prism-theme.css'
 
 // here we're bringing in any languages we want to support for
 // syntax highlighting via Notion's Code block
@@ -35,33 +35,12 @@ import 'prismjs/components/prism-typescript'
 import 'prismjs/components/prism-bash'
 
 import React from 'react'
-import { useRouter } from 'next/router'
-import { bootstrap } from '../lib/bootstrap-client'
-// import { fathomId, fathomConfig } from '../lib/config'
-// import * as Fathom from 'fathom-client'
+import { bootstrap } from 'lib/bootstrap-client'
 
 if (typeof window !== 'undefined') {
   bootstrap()
 }
 
 export default function App({ Component, pageProps }: any) {
-  const router = useRouter()
-
-  // React.useEffect(() => {
-  //   if (fathomId) {
-  //     Fathom.load(fathomId, fathomConfig)
-  //
-  //     function onRouteChangeComplete() {
-  //       Fathom.trackPageview()
-  //     }
-  //
-  //     router.events.on('routeChangeComplete', onRouteChangeComplete)
-  //
-  //     return () => {
-  //       router.events.off('routeChangeComplete', onRouteChangeComplete)
-  //     }
-  //   }
-  // }, [])
-
   return <Component {...pageProps} />
 }

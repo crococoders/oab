@@ -1,6 +1,6 @@
-import { ExtendedRecordMap, PageMap } from 'notion-types'
+import { ExtendedRecordMap, PageMap } from 'packages/notion-types'
 
-export * from 'notion-types'
+export * from 'packages/notion-types'
 
 export interface PageError {
   message?: string

@@ -1,10 +1,10 @@
 import pMemoize from 'p-memoize'
-import { getAllPagesInSpace } from 'notion-utils'
+import { getAllPagesInSpace } from 'packages/notion-utils'
 
-import * as types from './types'
-import { includeNotionIdInUrls } from './config'
-import { notion } from './notion'
-import { getCanonicalPageId } from './get-canonical-page-id'
+import * as types from 'lib/types'
+import { includeNotionIdInUrls } from 'lib/config'
+import { notion } from 'lib/notion'
+import { getCanonicalPageId } from 'lib/get-canonical-page-id'
 
 const uuid = !!includeNotionIdInUrls
 

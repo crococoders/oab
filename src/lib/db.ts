@@ -1,5 +1,5 @@
 import * as firestore from '@google-cloud/firestore'
-import * as config from './config'
+import * as config from 'lib/config'
 
 export let db: firestore.Firestore
 export let images: firestore.CollectionReference

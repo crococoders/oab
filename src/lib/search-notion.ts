@@ -2,8 +2,8 @@
 import fetch from 'isomorphic-unfetch'
 import pMemoize from 'p-memoize'
 
-import { api } from './config'
-import * as types from './types'
+import { api } from 'lib/config'
+import * as types from 'lib/types'
 
 export const searchNotion = pMemoize(searchNotionImpl, { maxAge: 10000 } )
 

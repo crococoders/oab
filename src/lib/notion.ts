@@ -1,7 +1,7 @@
-import { NotionAPI } from 'notion-client';
-import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types';
-import { getPreviewImages } from './get-preview-images';
-import { mapNotionImageUrl } from './map-image-url';
+import { NotionAPI } from 'packages/notion-client';
+import { ExtendedRecordMap, SearchParams, SearchResults } from 'packages/notion-types';
+import { getPreviewImages } from 'lib/get-preview-images';
+import { mapNotionImageUrl } from 'lib/map-image-url';
 import pMap from 'p-map';
 
 export const notion = new NotionAPI({

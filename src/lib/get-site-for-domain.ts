@@ -1,5 +1,5 @@
-import * as config from './config'
-import * as types from './types'
+import * as config from 'lib/config'
+import * as types from 'lib/types'
 
 export const getSiteForDomain = async (
   domain: string

@@ -1,5 +1,5 @@
-import { Block } from 'notion-types'
-import { imageCDNHost } from './config'
+import { Block } from 'packages/notion-types'
+import { imageCDNHost } from 'lib/config'
 
 export const mapNotionImageUrl = (url: string, block: Block) => {
   if (!url) {

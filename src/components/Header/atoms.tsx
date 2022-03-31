@@ -19,16 +19,46 @@ export const HeaderContainer = styled.div`
     
     background: white;
     box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
-    margin-bottom: 50px;
+    @media only screen and (max-width: 600px) {
+        padding: 0 20px 0 20px !important;
+    }
 `;
 
 export const LinksContainer = styled.div`
+    display: flex;
+    flex-direction: ${ (props : {isMobile: Boolean}) => props.isMobile ? 'column' : 'row'};
 `;
 
 export const StyledLink = styled.a`
     padding: 10px 0 10px 0;
     margin: 0 30px 0 30px;
     font-weight: 500;
+    padding-bottom: 10px;
+    
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+      
+    &::before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #000;
+        transform: scaleX(0);
+        transform-origin: top left;
+        transition: transform 0.3s ease;
+    }
+    
+    &:hover {
+        &::before {
+            transform: scaleX(1);
+        }
+    }
 `;
 
 export const LogoComponent = styled.div`

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const PageContainer = styled.div`
+const PageContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -11,3 +11,5 @@ export const PageContainer = styled.div`
     font-size: 52px;
     font-weight: 600;
 `;
+
+export default PageContainer;

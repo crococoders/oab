@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageContainer } from './atoms';
+import PageContainer from 'components/PageContainer';
 
 const GraduatesPage = () => {
     return (

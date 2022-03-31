@@ -21,7 +21,7 @@ const Header = ({}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()//onOpen
     const [isModalOpen, setModalOpen] = useState(false)
     const router = useRouter();
-
+    
     const openDrawer = () => {
         setModalOpen(true)
         onOpen();
@@ -54,7 +54,7 @@ const Header = ({}) => {
     );
 
     const OurLogo = () => (
-        <Link href={"./"} passHref>
+        <Link href={"/"} passHref>
             <LogoComponent>
                 <Image src={Logo} width={"60%"} height={"60%"} alt={"Logo"}/>
             </LogoComponent>

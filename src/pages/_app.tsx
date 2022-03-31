@@ -36,11 +36,18 @@ import 'prismjs/components/prism-bash'
 
 import React from 'react'
 import { bootstrap } from 'lib/bootstrap-client'
+import { ChakraProvider } from '@chakra-ui/react'
+import Header from "../components/Header";
 
 if (typeof window !== 'undefined') {
   bootstrap()
 }
 
 export default function App({ Component, pageProps }: any) {
-  return <Component {...pageProps} />
+  return (
+      <ChakraProvider>
+          <Header/>
+          <Component {...pageProps} />
+      </ChakraProvider>
+  )
 }

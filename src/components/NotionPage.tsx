@@ -215,6 +215,7 @@ export const NotionPage: React.FC = ({site, recordMap, error, pageId}: any) => {
                 searchNotion={searchNotion}
                 pageFooter={comments}
                 pageAside={pageAside}
+                disableHeader
                 footer={
                     <Footer
                         isDarkMode={darkMode.value}

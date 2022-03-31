@@ -2,7 +2,7 @@ import React from 'react';
 import { isDev, domain } from 'lib/config';
 import { getSiteMaps } from 'lib/get-site-maps';
 import { resolveNotionPage } from 'lib/resolve-notion-page';
-import { NotionPage } from '../components';
+import { NotionPage } from '../../components';
 
 export const getStaticProps = async (context: { params: { pageId: string; }; }) => {
     const rawPageId = context.params.pageId as string
@@ -46,11 +46,9 @@ export async function getStaticPaths() {
                 }
             }))
         ),
-        // paths: [],
         fallback: true
     }
 
-    console.log(ret.paths)
     return ret
 }
 

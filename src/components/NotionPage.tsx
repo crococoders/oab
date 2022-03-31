@@ -44,6 +44,7 @@ const Modal = dynamic(
 )
 
 export const NotionPage: React.FC = ({site, recordMap, error, pageId}: any) => {
+    console.log(site, recordMap, error, pageId)
     const router = useRouter()
     const lite = useSearchParam('lite')
 

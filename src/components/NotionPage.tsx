@@ -183,7 +183,7 @@ export const NotionPage: React.FC = ({site, recordMap, error, pageId}: any) => {
                 components={{
                     PageLink: ({href, as, passHref, prefetch, replace, scroll, shallow, locale, ...props}: any) => (
                         <Link
-                            href={href}
+                            href={'/blog'+href}
                             as={as}
                             passHref={passHref}
                             prefetch={prefetch}
